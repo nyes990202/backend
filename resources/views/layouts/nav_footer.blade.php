@@ -30,13 +30,13 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item @yield("nav_1")">
                     <a class="nav-link" href="/">首頁</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @yield("nav_2")">
                     <a class="nav-link" href="/news">最新消息</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @yield("nav_3")">
                     <a class="nav-link" href="/contact_us">來信推薦</a>
                 </li>
             </ul>
