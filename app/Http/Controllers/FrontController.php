@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\place;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -32,5 +34,27 @@ class FrontController extends Controller
     public function contact_us()
     {
         return view('font/contact_us');
+    }
+
+    public function store_contact(Request $request)
+    {
+    //    dd($request->all());
+
+    // DB::table('place')->insert(
+    //     ['email' => $request->email,
+    //     'place' => $request->place,
+    //     'img_url'=> '',
+    //     'place_name' =>$request->place_name,
+    //     'place_text' =>$request->place_text
+
+    //     ]
+
+    // );
+
+    Place::create($request->all());
+
+    return '成功';
+
+
     }
 }

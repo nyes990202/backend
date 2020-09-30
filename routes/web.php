@@ -23,6 +23,8 @@ Route::get('/news_info/{news_id}','FrontController@news_info');
 
 Route::get('/contact_us','FrontController@contact_us');
 
+Route::post('/store_contact','FrontController@store_contact');
+
 
 
 
