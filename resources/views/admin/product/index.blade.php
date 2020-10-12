@@ -13,22 +13,27 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin">主頁面</a></li>
-      <li class="breadcrumb-item active" aria-current="page">資料更改</li>
+      <li class="breadcrumb-item active" aria-current="page">商品資料更改</li>
     </ol>
   </nav>
 
-  <a class="btn btn-primary mb-3" href="news/create">新增資料</a>
+  <a class="btn btn-primary mb-3" href="product/create">新增商品資料</a>
 
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>標題</th>
-            <th>副標題</th>
-            <th>內容</th>
-            <th width="100">圖片</th>
-            <td>created_at</td>
+            <th>名稱/th>
+            <th width="100">商品圖片</th>
+
+            <th>價錢</th>
+            <th>說明</th>
+            <th width="100">圖文</th>
+            <th>日期</th>
+            <th>分類</th>
             <th  width="100">功能</th>
+
+
 
 
         </tr>
@@ -40,15 +45,20 @@
     <tbody>
         @foreach ($news_list as $news)
         <tr>
-            <td>{{$news->title}}</td>
+            <td>{{$news->name}}</td>
+            <td><img width="100" src="{{$news->product_img}}" alt=""></td>
+            <td>{{$news->price}}</td>
+            <td>{{$news->info}}</td>
+            <td>{{$news->info_img}}</td>
+            <td>{{$news->date}}</td>
+            <td>{{$news->type_id}}</td>
 
-            <td>{{$news->sub_title}}</td>
-            <td>{{$news->text}}</td>
-            <td><img width="100" src="{{$news->img_url}}" alt=""></td>
-            <td>{{$news->created_at}}</td>
+
+
             <td>
-            <a class="btn btn-dark" href="news/edit/{{$news->id}}">編輯</a>
+            <a class="btn btn-dark" href="product/edit/{{$news->id}}">編輯</a>
             <button class="btn btn-danger btn-del " data-newsid="{{$news->id}}" >刪除</button>
+            
             </td>
         </tr>
          @endforeach
@@ -74,7 +84,6 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable();
-
     $('#example').on('click','.btn-del',function()
     {
         var r = confirm('確定要刪除嗎?');

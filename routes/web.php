@@ -44,4 +44,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('news/destory/{news_id}', 'NewsController@destory');
 
 
+    Route::get('product','ProductController@index');
+    Route::get('product/create', 'ProductController@create');
+    Route::post('product/store','ProductController@store');
+    Route::get('product/edit/{product_id}', 'ProductController@edit');
+    Route::post('product/update/{product_id}', 'ProductController@update');
+    Route::get('product/destory/{product_id}', 'ProductController@destory');
+
+
 });
