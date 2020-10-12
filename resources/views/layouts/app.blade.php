@@ -39,6 +39,9 @@
                             <a class="nav-link" href="/admin/news">最新消息管理</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/admin/test">最新測試管理</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/admin/product">最新商品管理</a>
                         </li>
 

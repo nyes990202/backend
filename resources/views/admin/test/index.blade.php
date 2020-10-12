@@ -17,7 +17,7 @@
     </ol>
   </nav>
 
-  <a class="btn btn-primary mb-3" href="news/create">新增資料</a>
+  <a class="btn btn-primary mb-3" href="test/create">新增資料</a>
 
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -38,17 +38,17 @@
 
 
     <tbody>
-        @foreach ($news_list as $news)
+        @foreach ($test_list as $test)
         <tr>
-            <td>{{$news->title}}</td>
+            <td>{{$test->title}}</td>
 
-            <td>{{$news->sub_title}}</td>
-            <td>{{$news->text}}</td>
-            <td><img width="100" src="{{$news->img_url}}" alt=""></td>
-            <td>{{$news->created_at}}</td>
+            <td>{{$test->sub_title}}</td>
+            <td>{{$test->text}}</td>
+            <td><img width="100" src="{{$test->img_url}}" alt=""></td>
+            <td>{{$test->created_at}}</td>
             <td>
-            <a class="btn btn-dark" href="news/edit/{{$news->id}}">編輯</a>
-            <button class="btn btn-danger btn-del " data-newsid="{{$news->id}}" >刪除</button>
+            <a class="btn btn-dark" href="test/edit/{{$test->id}}">編輯</a>
+            <button class="btn btn-danger btn-del " data-testid="{{$test->id}}" >刪除</button>
             </td>
         </tr>
          @endforeach
@@ -79,7 +79,7 @@ $(document).ready(function() {
     {
         var r = confirm('確定要刪除嗎?');
         if(r==true){
-        window.location.href=`news/destroy/${this.dataset.newsid}`;
+        window.location.href=`test/destroy/${this.dataset.testid}`;
         }
     })
 } );

@@ -58,7 +58,7 @@
             <td>
             <a class="btn btn-dark" href="product/edit/{{$news->id}}">編輯</a>
             <button class="btn btn-danger btn-del " data-newsid="{{$news->id}}" >刪除</button>
-            
+
             </td>
         </tr>
          @endforeach
@@ -88,7 +88,7 @@ $(document).ready(function() {
     {
         var r = confirm('確定要刪除嗎?');
         if(r==true){
-        window.location.href=`news/destory/${this.dataset.newsid}`;
+        window.location.href=`news/destroy/${this.dataset.newsid}`;
         }
     })
 } );

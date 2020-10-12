@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\News;
-use Illuminate\Support\Facades\File;
+use App\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
-
-
-
-class NewsController extends Controller
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +16,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news_list = DB::table('news')->orderBy('id','desc')->get();
-        return view('admin/news/index',compact('news_list'));
+        $test_list = DB::table('test')->orderBy('id','desc')->get();
+        return view('admin/test/index',compact('test_list'));
 
     }
 
@@ -31,7 +28,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin/news/create');
+        return view('admin/test/create');
     }
 
     /**
@@ -42,33 +39,17 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-
         $requestData = $request->all();
 
         if($request->hasFile('img_url')) {
             $file = $request->file('img_url');
-            $path = $this->fileUpload($file,'news');
+            $path = $this->fileUpload($file,'test');
             $requestData['img_url'] = $path;
-        }
+    }
 
+        Test::create($requestData);
 
-        //第一種上傳方式
-        // $file_name = $request->file('img_url')->store('','public');
-        // $requestData['img_url'] = $file_name;
-
-         News::create($requestData);
-
-
-
-
-    //    $new_news= new News();
-    //    $new_news->title = $request->title;
-    //    $new_news->sub_title = $request->sub_title;
-    //    $new_news->text = $request->text;
-    //    $new_news->img_url = '';
-    //    $new_news->save();
-
-       return redirect('admin/news');
+        return redirect('admin/test');
 
     }
 
@@ -78,7 +59,6 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function show($id)
     {
         //
@@ -92,9 +72,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news=News::find($id);
-        return view('admin.news.edit',compact('news'));
-
+        $test=Test::find($id);
+        return view('admin.test.edit',compact('test'));
     }
 
     /**
@@ -106,20 +85,20 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = News::find($id);
+        $item = Test::find($id);
         $requestData = $request->all();
 
 
         if($request->hasFile('img_url')) {
             $old_image = $item->img_url;
             $file = $request->file('img_url');
-            $path = $this->fileUpload($file,'news');
+            $path = $this->fileUpload($file,'test');
             $requestData['img_url'] = $path;
             File::delete(public_path().$old_image);
         }
 
         $item->update($requestData);
-        return redirect('admin/news');
+        return redirect('admin/test');
     }
 
     /**
@@ -130,16 +109,16 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $item = News::find($id);
+        $item = Test::find($id);
         $old_image = $item->img_url;
         if(file_exists(public_path().$old_image)){
         File::delete(public_path().$old_image);
         }
+
         $item->delete();
 
-        return redirect('admin/news');
+        return redirect('admin/test');
     }
-
     private function fileUpload($file,$dir){
         //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
         if( ! is_dir('upload/')){

@@ -29,27 +29,35 @@ Route::post('/store_contact','FrontController@store_contact');
 
 
 
+//'register'=>false ,
 
-
-Auth::routes(['register'=>false , 'reset'=>false]);
+Auth::routes([ 'reset'=>false]);
 
 Route::get('/admin', 'HomeController@index')->name('home');
 Route::prefix('admin')->middleware(['auth'])->group(function(){
-
+    //消息管理
     Route::get('news','NewsController@index');
     Route::get('news/create', 'NewsController@create');
     Route::post('news/store','NewsController@store');
     Route::get('news/edit/{news_id}', 'NewsController@edit');
     Route::post('news/update/{news_id}', 'NewsController@update');
-    Route::get('news/destory/{news_id}', 'NewsController@destory');
+    Route::get('news/destroy/{news_id}', 'NewsController@destroy');
 
+    //測試管理
+    Route::get('test','TestController@index');
+    Route::get('test/create', 'TestController@create');
+    Route::post('test/store','TestController@store');
+    Route::get('test/edit/{test_id}', 'TestController@edit');
+    Route::post('test/update/{test_id}', 'TestController@update');
+    Route::get('test/destroy/{test_id}', 'TestController@destroy');
 
+    //商品管理
     Route::get('product','ProductController@index');
     Route::get('product/create', 'ProductController@create');
     Route::post('product/store','ProductController@store');
     Route::get('product/edit/{product_id}', 'ProductController@edit');
     Route::post('product/update/{product_id}', 'ProductController@update');
-    Route::get('product/destory/{product_id}', 'ProductController@destory');
+    Route::get('product/destroy/{product_id}', 'ProductController@destroy');
 
 
 });
