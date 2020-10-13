@@ -17,21 +17,29 @@
 <form method="POST" enctype="multipart/form-data" action='/admin/porduct/store'>
     @csrf
     <div class="form-group">
-        <label for="title">標題 <small class="text-danger">(限制字數最多20)</small></label>
-        <input name="title" type="text" class="form-control" id="title" required>
+        <label for="name">商品名稱 <small class="text-danger">(限制字數最多20)</small></label>
+        <input name="name" type="text" class="form-control" id="name" required>
     </div>
     <div class="form-group">
-        <label for="sub_title">副標題</label>
-        <input name="sub_title" type="text" class="form-control" id="sub_title" required>
+        <label for="price">價錢</label>
+        <input name="price" type="text" class="form-control" id="price" required>
+      </div>
 
+      <select name="type_id" class="form-control">
+          {{-- @foreach ($products as $type_id)
+
+          <option value=""></option>
+          @endforeach --}}
+
+
+      </select>
+      <div class="form-group">
+        <label for="product_img">上傳圖片<small class="text-danger">(建議上傳寬高比例4:3)</small></label>
+        <input name="product_img" type="file" class="form-control-file" id="product_img" required>
       </div>
       <div class="form-group">
-        <label for="img_url">上傳圖片<small class="text-danger">(建議上傳寬高比例4:3)</small></label>
-        <input name="img_url" type="file" class="form-control-file" id="img_url" required>
-      </div>
-      <div class="form-group">
-        <label for="text">說明內容</label>
-        <textarea name="text" class="form-control" id="text" rows="3" required></textarea>
+        <label for="info">說明</label>
+        <textarea name="info" class="form-control" id="info" rows="3" required></textarea>
       </div>
     <button type="submit" class="btn btn-primary">建立資料</button>
     </div>

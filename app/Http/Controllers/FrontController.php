@@ -24,6 +24,7 @@ class FrontController extends Controller
     public function news()
     {
         $news_list = DB::table('news')->orderBy('id','desc')->paginate(6);
+        
         return view('font/news',compact('news_list'));
     }
 

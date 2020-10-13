@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Products;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 
 
 use Illuminate\Http\Request;
@@ -29,7 +31,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin/product/create');
+        $product_type = DB::table('product_type')->orderBy("id","asc")->get();
+
+        return view('admin/product/create',compact('product_type'));
     }
 
     /**
