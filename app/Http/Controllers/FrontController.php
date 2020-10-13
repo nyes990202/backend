@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\place;
+use App\Products;
+use App\ProductsType;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -34,6 +36,22 @@ class FrontController extends Controller
     public function contact_us()
     {
         return view('font/contact_us');
+    }
+
+    public function products()
+    {
+        $product_types = ProductsType::with('products')->get();
+        // dd($product_types);
+
+        return view('font/products',compact('product_types'));
+    }
+
+    public function products_info($product_id)
+    {
+        $product = Products::find($product_id);
+        // dd($product_types);
+
+        return view('font/products_info',compact('product'));
     }
 
     public function store_contact(Request $request)

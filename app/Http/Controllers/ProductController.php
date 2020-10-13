@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Products;
+use Illuminate\Support\Facades\File;
+
 
 use Illuminate\Http\Request;
 
@@ -16,15 +18,6 @@ class ProductController extends Controller
     public function index()
     {
         $news_list = Products::with('product_type')->get();
-
-
-
-
-
-
-
-
-
         return view('admin.product.index',compact('news_list'));
 
     }
@@ -36,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/product/create');
     }
 
     /**
@@ -47,7 +40,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
+
+        if($request->hasFile('img_url')) {
+            $file = $request->file('img_url');
+            $path = $this->fileUpload($file,'news');
+            $requestData['img_url'] = $path;
+        }
+        Products::create($requestData);
+
+       return redirect('admin/product');
+
     }
 
     /**
@@ -69,7 +72,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products=Products::find($id);
+        return view('admin.product.edit',compact('products'));
     }
 
     /**
@@ -81,7 +85,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Products::find($id);
+        $requestData = $request->all();
+
+
+        if($request->hasFile('img_url')) {
+            $old_image = $item->img_url;
+            $file = $request->file('img_url');
+            $path = $this->fileUpload($file,'products');
+            $requestData['img_url'] = $path;
+            File::delete(public_path().$old_image);
+        }
+
+        $item->update($requestData);
+        return redirect('admin/product');
     }
 
     /**

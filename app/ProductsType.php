@@ -12,9 +12,9 @@ class ProductsType extends Model
        'type_name','sort'
     ];
 
-    public function product()
+    public function products()
     {
-        return $this->hasMany('App/Products');
+        return $this->hasMany('App\Products','type_id');
     }
 }
 
