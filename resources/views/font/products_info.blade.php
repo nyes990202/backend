@@ -6,7 +6,7 @@
 <section class="news_info">
 
     <div class="container">
-    <h2 class="info_title">{{$product->name}}</h2>
+    <h2 class="info_title m-5 pt-5">{{$product->name}}</h2>
         <div class="row m-5">
             <div class="col-12 my-3 my-md-0 col-md-6">
                 <div class="image_box h-100">

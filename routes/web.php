@@ -23,6 +23,9 @@ Route::get('/news','FrontController@news');
 
 Route::get('/product','FrontController@Products');
 
+Route::get('/products_type/{type_id}','FrontController@products_type');
+
+
 Route::get('/products_info/{product_id}','FrontController@products_info');
 
 
@@ -65,5 +68,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::post('product/update/{product_id}', 'ProductController@update');
     Route::get('product/destroy/{product_id}', 'ProductController@destroy');
 
+    //商品類別管理
+     Route::resource('product_type','ProductTypeController');
 
 });

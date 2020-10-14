@@ -14,7 +14,7 @@
 
 
 <div class="container">
-<form method="POST" enctype="multipart/form-data" action='/admin/porduct/store'>
+<form method="POST" enctype="multipart/form-data" action='/admin/product/store'>
     @csrf
     <div class="form-group">
         <label for="name">商品名稱 <small class="text-danger">(限制字數最多20)</small></label>
@@ -26,10 +26,11 @@
       </div>
 
       <select name="type_id" class="form-control">
-          {{-- @foreach ($products as $type_id)
+           @foreach ($product_type as $type_id)
 
-          <option value=""></option>
-          @endforeach --}}
+        <option value="{{$type_id->id}}">{{$type_id->type_name}}</option>
+
+          @endforeach
 
 
       </select>

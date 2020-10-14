@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Products;
+use App\ProductsType;
+
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
@@ -46,10 +48,10 @@ class ProductController extends Controller
     {
         $requestData = $request->all();
 
-        if($request->hasFile('img_url')) {
-            $file = $request->file('img_url');
-            $path = $this->fileUpload($file,'news');
-            $requestData['img_url'] = $path;
+        if($request->hasFile('product_img')) {
+            $file = $request->file('product_img');
+            $path = $this->fileUpload($file,'products');
+            $requestData['product_img'] = $path;
         }
         Products::create($requestData);
 
@@ -76,8 +78,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $product_types = ProductsType::with('products')->get();
+
+
         $products=Products::find($id);
-        return view('admin.product.edit',compact('products'));
+
+        return view('admin.product.edit',compact('products','product_types'));
     }
 
     /**
@@ -93,15 +99,16 @@ class ProductController extends Controller
         $requestData = $request->all();
 
 
-        if($request->hasFile('img_url')) {
-            $old_image = $item->img_url;
-            $file = $request->file('img_url');
+        if($request->hasFile('product_img')) {
+            $old_image = $item->product_img;
+            $file = $request->file('product_img');
             $path = $this->fileUpload($file,'products');
-            $requestData['img_url'] = $path;
+            $requestData['product_img'] = $path;
             File::delete(public_path().$old_image);
         }
 
         $item->update($requestData);
+
         return redirect('admin/product');
     }
 
@@ -113,6 +120,34 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Products::find($id);
+        $old_image = $item->product_img;
+        if(file_exists(public_path().$old_image)){
+        File::delete(public_path().$old_image);
+        }
+        $item->delete();
+
+        return redirect('admin/product');
     }
+
+    private function fileUpload($file,$dir){
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if( ! is_dir('upload/')){
+            mkdir('upload/');
+        }
+        //防呆：資料夾不存在時將會自動建立資料夾，避免錯誤
+        if ( ! is_dir('upload/'.$dir)) {
+            mkdir('upload/'.$dir);
+        }
+        //取得檔案的副檔名
+        $extension = $file->getClientOriginalExtension();
+        //檔案名稱會被重新命名
+        $filename = strval(time().md5(rand(100, 200))).'.'.$extension;
+        //移動到指定路徑
+        move_uploaded_file($file, public_path().'/upload/'.$dir.'/'.$filename);
+        //回傳 資料庫儲存用的路徑格式
+        return '/upload/'.$dir.'/'.$filename;
+    }
+
+
 }

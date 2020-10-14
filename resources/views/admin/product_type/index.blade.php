@@ -13,24 +13,22 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin">主頁面</a></li>
-      <li class="breadcrumb-item active" aria-current="page">商品資料更改</li>
+      <li class="breadcrumb-item active" aria-current="page">商品類別更改</li>
     </ol>
   </nav>
 
-  <a class="btn btn-primary mb-3" href="product/create">新增商品資料</a>
+  <a class="btn btn-primary mb-3" href="/admin/product_type/create">新增商品類別</a>
 
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>名稱/th>
-            <th width="100">商品圖片</th>
+            <th>類別</th>
 
-            <th>價錢</th>
-            <th>說明</th>
-            <th width="100">圖文</th>
-            <th>日期</th>
-            <th>分類</th>
+
+            <th>排序</th>
+
+
             <th  width="100">功能</th>
 
 
@@ -43,25 +41,22 @@
 
 
     <tbody>
-        @foreach ($news_list as $news)
+        @foreach ($product_type as $types)
         <tr>
 
-            <td>{{$news->name}}</td>
-            <td><img width="100" src="{{$news->product_img}}" alt=""></td>
-            <td>{{$news->price}}</td>
-            <td>{{$news->info}}</td>
-            <td>{{$news->info_img}}</td>
-            <td>{{$news->date}}</td>
+            <td>{{$types->type_name}}</td>
 
-            <td>{{$news->product_type->type_name}}</td>
+            <td>{{$types->sort}}</td>
 
 
 
             <td>
-            <a class="btn btn-dark" href="product/edit/{{$news->id}}">編輯</a>
-
-            <button class="btn btn-danger btn-del " data-newsid="{{$news->id}}" >刪除</button>
-
+            <a class="btn btn-dark" href="/admin/product_type/{{$types->id}}/edit">編輯</a>
+            <button class="btn btn-danger btn-del " data-ptid="{{$types->id}}" >刪除</button>
+            <form id="delete-form{{$types->id}}" action="/admin/product_type/{{$types->id}}" method="POST" style="display: none;">
+                @csrf
+                @method("DELETE")
+            </form>
 
             </td>
         </tr>
@@ -90,9 +85,9 @@ $(document).ready(function() {
     $('#example').DataTable();
     $('#example').on('click','.btn-del',function()
     {
-        var r = confirm('確定要刪除嗎?');
+        var r = confirm('如果刪除類別，旗下產品也都會被刪除!!');
         if(r==true){
-        window.location.href=`product/destroy/${this.dataset.newsid}`;
+        $('#delete-form' + this.dataset.ptid).submit();
         }
     })
 } );

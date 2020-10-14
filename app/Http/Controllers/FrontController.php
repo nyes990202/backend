@@ -24,7 +24,7 @@ class FrontController extends Controller
     public function news()
     {
         $news_list = DB::table('news')->orderBy('id','desc')->paginate(6);
-        
+
         return view('font/news',compact('news_list'));
     }
 
@@ -45,6 +45,14 @@ class FrontController extends Controller
         // dd($product_types);
 
         return view('font/products',compact('product_types'));
+    }
+
+    public function products_type($type_id)
+    {
+        $product_type = ProductsType::find($type_id);
+        $products = $product_type ->products;
+
+        return view('font.product_type',compact('product_type','products'));
     }
 
     public function products_info($product_id)

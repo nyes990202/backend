@@ -10,16 +10,10 @@
 <div class="container">
     <h2 class="news_title">最新商品</h2>
 
-
-    {{-- <div class="row news_lists"> --}}
-        @foreach ($product_types as $product_type)
         <ul>
-        <li><a href="/products_type/{{$product_type->id}}"><h2 class="text-info">{{$product_type->type_name}}</h2></a></li>
+
         </ul>
-
-        @endforeach
-
-        @foreach ($product_types as $product_type)
+    {{-- <div class="row news_lists"> --}}
 
 
 
@@ -49,7 +43,7 @@
 
         </div>
 
-        @endforeach
+        
 
 
     {{-- </div> --}}

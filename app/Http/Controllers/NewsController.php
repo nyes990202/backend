@@ -119,6 +119,7 @@ class NewsController extends Controller
         }
 
         $item->update($requestData);
+        
         return redirect('admin/news');
     }
 
