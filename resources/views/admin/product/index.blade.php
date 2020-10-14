@@ -23,7 +23,7 @@
 <table id="example" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
-            <th>名稱/th>
+            <th>名稱</th>
             <th width="100">商品圖片</th>
 
             <th>價錢</th>
