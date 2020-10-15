@@ -29,8 +29,10 @@
             <th>價錢</th>
             <th>說明</th>
             <th width="100">圖文</th>
-            <th>日期</th>
+            <th>上架日期</th>
             <th>分類</th>
+
+
             <th  width="100">功能</th>
 
 

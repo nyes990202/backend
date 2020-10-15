@@ -28,13 +28,13 @@ Route::get('/products_type/{type_id}','FrontController@products_type');
 
 Route::get('/products_info/{product_id}','FrontController@products_info');
 
-
-
 Route::get('/news_info/{news_id}','FrontController@news_info');
 
 Route::get('/contact_us','FrontController@contact_us');
 
 Route::post('/store_contact','FrontController@store_contact');
+
+
 
 
 
@@ -70,5 +70,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
     //商品類別管理
      Route::resource('product_type','ProductTypeController');
+
+     //summernote上傳
+     Route::post('/ajax_upload_img','AdminController@ajax_upload_img');
+    Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
+
 
 });

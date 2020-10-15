@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\ProductImgs;
 use App\Products;
 use App\ProductsType;
 
@@ -46,6 +48,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        // $files = $request->file('multiple_img');
+        // dd($files);
+
         $requestData = $request->all();
 
         if($request->hasFile('product_img')) {
@@ -53,7 +59,23 @@ class ProductController extends Controller
             $path = $this->fileUpload($file,'products');
             $requestData['product_img'] = $path;
         }
-        Products::create($requestData);
+       $product = Products::create($requestData);
+
+        //取得剛剛建立資料的ID
+        $product_id = $product->id;
+
+        //多圖上傳
+        if($request->hasFile('multiple_img')) {
+            $flies = $request->file('multiple_img');
+            foreach($flies as $file){
+                $path = $this->fileUpload($file,'products');
+                ProductImgs::create([
+                    'img_url' => $path,
+
+                    'product_id' => $product_id,
+                ]);
+            }
+        }
 
        return redirect('admin/product');
 
@@ -78,6 +100,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        
         $product_types = ProductsType::with('products')->get();
 
 
@@ -97,8 +120,6 @@ class ProductController extends Controller
     {
         $item = Products::find($id);
         $requestData = $request->all();
-
-
         if($request->hasFile('product_img')) {
             $old_image = $item->product_img;
             $file = $request->file('product_img');
