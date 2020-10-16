@@ -59,6 +59,7 @@ class ProductController extends Controller
             $path = $this->fileUpload($file,'products');
             $requestData['product_img'] = $path;
         }
+
        $product = Products::create($requestData);
 
         //取得剛剛建立資料的ID
@@ -100,9 +101,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        
-        $product_types = ProductsType::with('products')->get();
 
+        $product_types = ProductsType::with('products')->get();
+        $product_imgs = Products::where('id',$id)->with('ProductImg')->first();
 
         $products=Products::find($id);
 
@@ -118,15 +119,43 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $item = Products::find($id);
+
+        // $requestData = $request->all();
+        // //單張圖片上傳
+        // if($request->hasFile('product_img')) {
+        //     $old_image = $item->product_img;
+        //     $file = $request->file('product_img');
+        //     $path = $this->fileUpload($file,'products');
+        //     $requestData['product_img'] = $path;
+        //     File::delete(public_path().$old_image);
+        // }
+
         $item = Products::find($id);
+
         $requestData = $request->all();
-        if($request->hasFile('product_img')) {
+
+        //單張圖片上傳
+        if($request->hasFile('product_img','multiple_img')) {
             $old_image = $item->product_img;
             $file = $request->file('product_img');
             $path = $this->fileUpload($file,'products');
             $requestData['product_img'] = $path;
             File::delete(public_path().$old_image);
+
         }
+          //多圖上傳
+          if($request->hasFile('multiple_img')) {
+              $flies = $request->file('multiple_img');
+              foreach($flies as $file){
+                  $path = $this->fileUpload($file,'products');
+                  ProductImgs::create([
+                      'img_url' => $path,
+
+                      'product_id' => $id,
+                  ]);
+              }
+          }
 
         $item->update($requestData);
 
@@ -147,6 +176,18 @@ class ProductController extends Controller
         File::delete(public_path().$old_image);
         }
         $item->delete();
+
+         //多張圖片的刪除
+         $product_imgs = ProductImgs::where('product_id',$id)->get();
+         foreach($product_imgs as $product_img){
+             $old_product_img = $product_img->img;
+             if(file_exists(public_path().$old_product_img)){
+                 File::delete(public_path().$old_product_img);
+             }
+
+             $product_img->delete();
+
+            }
 
         return redirect('admin/product');
     }

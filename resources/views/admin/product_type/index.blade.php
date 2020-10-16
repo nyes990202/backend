@@ -13,7 +13,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin">主頁面</a></li>
-      <li class="breadcrumb-item active" aria-current="page">商品類別更改</li>
+      <li class="breadcrumb-item active" aria-current="page">商品類別</li>
     </ol>
   </nav>
 
@@ -24,21 +24,10 @@
     <thead>
         <tr>
             <th>類別</th>
-
-
             <th>排序</th>
-
-
             <th  width="100">功能</th>
-
-
-
-
         </tr>
     </thead>
-
-
-
 
     <tbody>
         @foreach ($product_type as $types)

@@ -7,8 +7,8 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/admin">主頁面</a></li>
-        <li class="breadcrumb-item"><a href="/admin/product_type">商品列</a></li>
-        <li class="breadcrumb-item active" aria-current="page">商品建立</li>
+        <li class="breadcrumb-item"><a href="/admin/product_type">商品類別</a></li>
+        <li class="breadcrumb-item active" aria-current="page">類別建立</li>
       </ol>
     </nav>
 

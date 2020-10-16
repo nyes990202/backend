@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductImgs;
+use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -41,6 +43,32 @@ class AdminController extends Controller
         if(file_exists(public_path().$request->file_link)){
             File::delete(public_path().$request->file_link);
         }
+    }
+
+    //多張圖刪除單張
+    // public function ajax_delete_product_imgs(Request $request)
+    //     {
+    //         $product_id = $request->product_id;
+
+    //         //多張圖片組的單一圖片刪除
+    //         $product_img = ProductImgs::where('id',$product_id)->first();
+    //         $old_product_img = $product_img->img;
+    //         if(file_exists(public_path().$old_product_img)){
+    //             File::delete(public_path().$old_product_img);
+    //         }
+    //         $product_img->delete();
+    //         // echo '{"status":"success","message":"delete file success"}';
+    //     }
+
+    public function ajax_delete_product_imgs($id)
+    {
+        $item = ProductImgs::find($id);
+        dd($item);
+        $old_image = $item->product_img;
+        if(file_exists(public_path().$old_image)){
+        File::delete(public_path().$old_image);
+        }
+        $item->delete();
     }
 
 }

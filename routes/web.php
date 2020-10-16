@@ -73,7 +73,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
      //summernote上傳
      Route::post('/ajax_upload_img','AdminController@ajax_upload_img');
-    Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
+     Route::post('/ajax_delete_img','AdminController@ajax_delete_img');
+
+     //多張圖片單張刪除
+
+     Route::post('/ajax_delete_product_imgs','AdminController@ajax_delete_product_imgs');
 
 
 });
