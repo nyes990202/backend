@@ -63,11 +63,11 @@ class AdminController extends Controller
     public function ajax_delete_product_imgs($id)
     {
         $item = ProductImgs::find($id);
-        dd($item);
         $old_image = $item->product_img;
         if(file_exists(public_path().$old_image)){
         File::delete(public_path().$old_image);
         }
+
         $item->delete();
     }
 

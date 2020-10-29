@@ -159,7 +159,7 @@ class ProductController extends Controller
 
         $item->update($requestData);
 
-        return redirect('admin/product');
+        // return redirect('admin/product');
     }
 
     /**

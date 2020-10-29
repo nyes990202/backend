@@ -52,7 +52,7 @@
 
          <img  class="figure" height="100" src="{{$ProductImgs->img_url}}" alt="">
 
-         <button class="btn btn-danger btn-del " data-imgid="{{$ProductImgs->id}}" >X</button>
+         <div class="btn btn-danger btn-del " data-imgid="{{$ProductImgs->id}}" >X</div>
     {{-- <a class="btn btn-danger  " href="/admin/ajax_delete_img/{{$ProductImgs->id}}">X</a> --}}
 
 
@@ -97,7 +97,6 @@
         window.location.href=`admin/ajax_delete_product_imgs/${this.dataset.imgid}`;
         }
     });
-
 
     </script>
 

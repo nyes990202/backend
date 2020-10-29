@@ -77,7 +77,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
 
      //多張圖片單張刪除
 
-     Route::post('/ajax_delete_product_imgs','AdminController@ajax_delete_product_imgs');
+     Route::post('/ajax_delete_product_imgs/{img_id}','AdminController@ajax_delete_product_imgs');
 
 
 });
